@@ -1,0 +1,39 @@
+body {
+  background-color: #00C4CC;
+  color: #565A5C;
+  font-family: Helvetica;
+  margin: 0;
+  text-align: center;
+}
+
+h1 {
+  letter-spacing: 1px;
+  margin: 0 0 40px 0;
+  text-transform: uppercase;
+}
+
+.app-wrapper {
+  background-color: white;
+  box-sizing: border-box;
+  margin: 0 auto;
+  min-height: 100vh;
+  padding: 50px;
+  width: 70%;
+}
+
+.drop-zone {
+  align-items: center;
+  border: 1px dashed #565A5C;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 400px;
+  margin: 0 auto;
+  padding: 40px;
+  width: 400px;
+}
+
+input[type="file"] {
+  width: 155px;
+}

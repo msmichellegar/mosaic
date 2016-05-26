@@ -1,11 +1,17 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script type="text/javascript" src="js/mosaic.js"></script>
-    <script type="text/javascript" src="js/client.js"></script>
     <title>Mosaic</title>
+    <link rel="stylesheet" href="css/main.css">
   </head>
   <body>
-    <!-- Edit me. -->
+    <div class="app-wrapper">
+      <div class="drop-zone" id="drop-zone">
+        <p>Drag and drop your image to create a mosaic, or choose a file below.</p>
+        <input type=file id="file-upload">
+      </div>
+    </div>
+    <script type="text/javascript" src="js/mosaic.js"></script>
+    <script type="text/javascript" src="js/client.js"></script>
   </body>
 </html>
