@@ -1,4 +1,3 @@
-
 // captures image file on upload
 function captureFile() {
   var fileUpload = document.getElementById("file-upload");
@@ -14,10 +13,25 @@ function getImagePath(file) {
   var reader = new FileReader();
 
   reader.onload = function(event) {
-    return event.target.result;
+    drawCanvas(event.target.result)
   }
 
   reader.readAsDataURL(file);
+}
+
+// draws image to canvas
+function drawCanvas(imageSrc) {
+
+  var canvas = document.getElementById("image-canvas");
+
+  var ctx = canvas.getContext("2d");
+
+  var img = new Image();
+  img.onload = function () {
+    ctx.drawImage(img, 0, 0);
+  }
+  img.src = imageSrc;
+
 }
 
 // fetches tile from server
