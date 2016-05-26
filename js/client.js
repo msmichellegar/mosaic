@@ -1,5 +1,23 @@
-// captures image file on upload
-function captureFile() {
+// captures image file on drag and drop
+function captureDragDrop() {
+  var dropZone = document.getElementById("drop-zone");
+
+  dropZone.addEventListener("dragover", function(event) {
+    event.stopPropagation();
+    event.preventDefault();
+    event.dataTransfer.dropEffect = "copy";
+  });
+
+  dropZone.addEventListener("drop", function(event) {
+    event.stopPropagation();
+    event.preventDefault();
+    getImagePath(event.dataTransfer.files[0]);
+  });
+
+}
+
+// captures image file on manual upload
+function captureFileUpload() {
   var fileUpload = document.getElementById("file-upload");
 
   fileUpload.addEventListener("change", function() {
@@ -53,4 +71,5 @@ function getTile(color) {
 
 }
 
-captureFile();
+captureFileUpload();
+captureDragDrop();
