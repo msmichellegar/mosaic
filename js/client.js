@@ -59,24 +59,10 @@ function createImageElement(imageSrc) {
   }
 }
 
-// draws image to canvas
-function drawCanvas(image) {
-
-  // context.drawImage(image, 0, 0);
-
-  // if (document.querySelector("canvas") === null) {
-  //   document.getElementById("app-wrapper").appendChild(canvas);
-  //
-  // } else {
-  //   document.getElementById("app-wrapper").replaceChild(canvas, document.querySelector("canvas"));
-  // }
-
-  // sliceCanvas(canvas, context, image);
-
-}
-
 // slices images into tiles
 function sliceImage(image) {
+  var originalCanvas = document.getElementById("canvas");
+
   var canvas = document.createElement("canvas");
   var context = canvas.getContext("2d");
 
@@ -84,6 +70,9 @@ function sliceImage(image) {
   var numberOfRows = image.height / TILE_HEIGHT;
 
   var slicedImages = [];
+
+  originalCanvas.height = image.height + 20;
+  originalCanvas.width = image.width + 20;
 
 	canvas.width = TILE_WIDTH;
 	canvas.height = TILE_HEIGHT;
@@ -116,8 +105,9 @@ function sliceImage(image) {
 function buildMosaic(slicedImages) {
 
   for (var i=0; i < slicedImages.length; i++) {
+    var averageColour = getAverageColour(slicedImages[i]);
 
-    getAverageColour(slicedImages[i]);
+    displayTile(averageColour, slicedImages[i])
 
   }
 
@@ -157,11 +147,13 @@ function getAverageColour(slicedImage) {
   greenValue = Math.floor(greenSum / numberOfPixels);
   blueValue = Math.floor(blueSum / numberOfPixels);
 
-  convertRgbToHex(redValue, greenValue, blueValue);
+  var hexColour = convertRgbToHex(redValue, greenValue, blueValue);
+
+  return hexColour;
 
 }
 
-function convertRgbToHex(redValue, greenValue, blueValue) {
+function convertRgbToHex(redValue, greenValue, blueValue, slicedImage) {
   var redHex = redValue.toString(16);
   var greenHex = greenValue.toString(16);
   var blueHex = blueValue.toString(16);
@@ -173,39 +165,31 @@ function convertRgbToHex(redValue, greenValue, blueValue) {
       hexCode[i] = "0" + hexCode[i];
     }
 
-  }
+    if (i === hexCode.length -1) {
+      return hexCode.join("");
+    }
 
-  displayTile(hexCode.join(""));
+  }
 
 }
 
 // fetches colour tile from server
-function displayTile(colour) {
+function displayTile(colour, slicedImage) {
+  var canvas = document.getElementById("canvas");
+  var context = canvas.getContext("2d");
+
   var tile = new Image();
   tile.src = "/color/" + colour;
 
-  document.getElementById("app-wrapper").appendChild(tile)
+  console.log(context)
 
-}
+  // console.log(tile, slicedImage.x, slicedImage.y, TILE_WIDTH, TILE_HEIGHT)
 
-function drawMosaic(data) {
-  var canvas = document.createElement("canvas");
-  var context = canvas.getContext("2d");
+  tile.onload = function() {
 
-  var DOMURL = window.URL || window.webkitURL || window;
+      context.drawImage(tile, slicedImage.x, slicedImage.y, TILE_WIDTH, TILE_HEIGHT);
 
-  var image = new Image();
-  var svg = new Blob([data], {type: 'image/svg+xml;charset=utf-8'});
-  var url = DOMURL.createObjectURL(svg);
-
-  image.onload = function() {
-    context.drawImage(image, 0, 0);
-    DOMURL.revokeObjectURL(url);
-
-    document.getElementById("app-wrapper").appendChild(image);
-  }
-
-  image.src = url;
+  };
 
 }
 
