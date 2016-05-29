@@ -45,3 +45,16 @@ input[type="file"] {
 canvas {
   margin-top: 50px;
 }
+
+@media (max-width: 750px) {
+
+  .app-wrapper {
+    padding: 30px 10px;
+    width: 95%;
+  }
+
+  .drop-zone {
+    width: 300px;
+  }
+
+}
