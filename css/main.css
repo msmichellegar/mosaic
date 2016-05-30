@@ -18,7 +18,7 @@ h1 {
   margin: 0 auto;
   min-height: 100vh;
   padding: 50px;
-  width: 70%;
+  width: 80%;
 }
 
 .drop-zone {
@@ -46,7 +46,7 @@ canvas {
   margin-top: 50px;
 }
 
-@media (max-width: 750px) {
+@media (max-width: 950px) {
 
   .app-wrapper {
     padding: 30px 10px;
